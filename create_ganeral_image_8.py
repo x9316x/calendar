@@ -2,10 +2,10 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 import textwrap
 
-def create_ganeral_image_5(output_folder, background_image, font_path):
+def create_ganeral_image_8(output_folder, background_image, font_path):
     """Создание слайда с плюсом и минусом."""
     width, height = 3200, 1800
-    title_image_path = os.path.join(output_folder, "005_Общий.png")
+    title_image_path = os.path.join(output_folder, "008_Общий.png")
 
     if not os.path.exists(font_path):
         print(f"Файл шрифта {font_path} не найден!")
@@ -28,16 +28,16 @@ def create_ganeral_image_5(output_folder, background_image, font_path):
     # Текст "В плюсе" и его содержание
     plus_title = "В ПЛЮСЕ:"
     plus_text = (
-        "В этом году надо делать максимально самопожертвование, жертвоприношение, то есть больше отдавать. "
-        "Много энергии, служение, желание действовать. Интересные яркие отношения. Победы, новые проекты, благотворительность."
+        "Когда к человеку приходит год Солнца, человеку предстоит открыть новое дело."
+        "Решимость, уверенность в себе. Видение своего пути, масштаб. Способность вести за собой."
     )
 
     # Текст "В минусе" и его содержание
     minus_title = "В МИНУСЕ:"
     minus_text = (
-        "Не понимая и не принимая, что разрушения, окончание каких-то процессов в жизни и даже смерть – неизбежны, "
-        "будете всё сильнее притягивать. Выгорание, нет энергии ни на что, чувство, что мир несправедлив. "
-        "Драмы, драки, американские горки в отношениях."
+        "Происходит снижение сердечной чакры, сжатие в груди."
+        "Неудовлетворенность собой, нереализованный потенциал. Эгоизм, агрессия, деспотизм."
+
     )
 
     # Координаты текста
@@ -64,4 +64,4 @@ def create_ganeral_image_5(output_folder, background_image, font_path):
 
     # Сохранение изображения
     bg.save(title_image_path, "PNG")
-    print(f"Пятый слайд сохранён как {title_image_path}")
+    print(f"Восьмой слайд сохранён как {title_image_path}")

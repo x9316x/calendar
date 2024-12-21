@@ -4,7 +4,7 @@ import os
 def create_ganeral_image_2(output_folder, background_image, font_path):
     """Создание титульного изображения."""
     width, height = 3200, 1800
-    title_image_path = os.path.join(output_folder, "0011_Общий.png")
+    title_image_path = os.path.join(output_folder, "002_Общий.png")
 
     if not os.path.exists(font_path):
         print(f"Файл шрифта {font_path} не найден!")

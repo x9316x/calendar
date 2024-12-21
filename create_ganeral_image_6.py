@@ -1,10 +1,10 @@
 from PIL import Image
 import os
 
-def create_ganeral_image_3(output_folder, background_image, phone_image_path):
+def create_ganeral_image_6(output_folder, background_image, phone_image_path):
     """Создание страницы с изображением телефона по центру."""
     width, height = 3200, 1800
-    output_path = os.path.join(output_folder, "003_Общий.png")  # Имя выходного файла
+    output_path = os.path.join(output_folder, "006_Общий.png")  # Имя выходного файла
 
     # Загружаем фон
     if not os.path.exists(background_image):

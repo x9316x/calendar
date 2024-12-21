@@ -5,7 +5,7 @@ import textwrap
 def create_ganeral_image_4(output_folder, background_image, font_path):
     """Создание четвёртого слайда."""
     width, height = 3200, 1800
-    title_image_path = os.path.join(output_folder, "0013_Общий.png")
+    title_image_path = os.path.join(output_folder, "004_Общий.png")
 
     if not os.path.exists(font_path):
         print(f"Файл шрифта {font_path} не найден!")
