@@ -2,45 +2,11 @@ from PIL import Image, ImageDraw, ImageFont
 import calendar
 import os
 
-def create_title_image(output_folder="months_png", background_image="background.png"):
-    """Создание титульного изображения."""
-    width, height = 3200, 1800
-    title_image_path = os.path.join(output_folder, "00_Титульный.png")
-
-    font_path = "ofont.ru_Uncage.ttf"
-    if not os.path.exists(font_path):
-        print(f"Файл шрифта {font_path} не найден!")
-        return
-
-    font_title = ImageFont.truetype(font_path, 150)
-    font_subtitle = ImageFont.truetype(font_path, 80)
-
-    if not os.path.exists(background_image):
-        print(f"Файл фона {background_image} не найден!")
-        return
-    bg = Image.open(background_image).resize((width, height))
-    draw = ImageDraw.Draw(bg)
-
-    # Добавляем текст
-    title_text = "2025"
-    subtitle_text = "КАЛЕНДАРЬ УСПЕХА"
-
-    text_width = draw.textlength(title_text, font=font_title)
-    draw.text(((width - text_width) // 2, 600), title_text, fill="black", font=font_title)
-
-    text_width = draw.textlength(subtitle_text, font=font_subtitle)
-    draw.text(((width - text_width) // 2, 800), subtitle_text, fill="black", font=font_subtitle)
-
-    bg.save(title_image_path, "PNG")
-    print(f"Титульный слайд сохранён как {title_image_path}")
-
-
-def create_month_images_with_background(output_folder="months_png", background_image="background.png"):
+def create_month_images_with_background(output_folder, background_image, font_path):
     """Создание изображений для каждого месяца."""
     width, height = 3200, 1800
     os.makedirs(output_folder, exist_ok=True)
 
-    font_path = "ofont.ru_Uncage.ttf"
     if not os.path.exists(font_path):
         print(f"Файл шрифта {font_path} не найден!")
         return
@@ -96,14 +62,3 @@ def create_month_images_with_background(output_folder="months_png", background_i
         image_path = os.path.join(output_folder, f"{month:02d}_{months_ru[month - 1]}.png")
         img.save(image_path, "PNG")
         print(f"Сохранено: {image_path}")
-
-
-if __name__ == "__main__":
-    background_image = "background.png"
-    output_folder = "months_png"
-
-    print("Генерация титульного слайда...")
-    create_title_image(output_folder, background_image)
-
-    print("Генерация календарных изображений...")
-    create_month_images_with_background(output_folder, background_image)
