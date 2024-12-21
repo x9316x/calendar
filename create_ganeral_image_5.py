@@ -2,7 +2,7 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 import textwrap
 
-def create_ganeral_image_5(output_folder, background_image, font_path):
+def create_ganeral_image_5(output_folder, background_image, font_path, text_color):
     """Создание слайда с плюсом и минусом."""
     width, height = 3200, 1800
     title_image_path = os.path.join(output_folder, "005_Общий.png")
@@ -23,7 +23,7 @@ def create_ganeral_image_5(output_folder, background_image, font_path):
     # Заголовок
     title_text = "2025"
     title_width = draw.textlength(title_text, font=font_title)
-    draw.text(((width - title_width) // 2, 200), title_text, fill="black", font=font_title)
+    draw.text(((width - title_width) // 2, 200), title_text, fill=text_color, font=font_title)
 
     # Текст "В плюсе" и его содержание
     plus_title = "В ПЛЮСЕ:"
@@ -51,7 +51,7 @@ def create_ganeral_image_5(output_folder, background_image, font_path):
     current_y = text_start_y + 70
     wrapped_plus_text = textwrap.fill(plus_text, width=40)
     for line in wrapped_plus_text.split('\n'):
-        draw.text((left_margin, current_y), line, fill="black", font=font_text)
+        draw.text((left_margin, current_y), line, fill=text_color, font=font_text)
         current_y += font_text.size + line_spacing
 
     # Вывод текста "В минусе"
@@ -59,7 +59,7 @@ def create_ganeral_image_5(output_folder, background_image, font_path):
     current_y = text_start_y + 70
     wrapped_minus_text = textwrap.fill(minus_text, width=40)
     for line in wrapped_minus_text.split('\n'):
-        draw.text((right_margin, current_y), line, fill="black", font=font_text)
+        draw.text((right_margin, current_y), line, fill=text_color, font=font_text)
         current_y += font_text.size + line_spacing
 
     # Сохранение изображения

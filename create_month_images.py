@@ -18,7 +18,7 @@ start_numbers = {
     "Декабрь": {"Общий день": 4, "Личный день": 5},
 }
 
-def create_month_images_with_background(output_folder, background_image, font_path):
+def create_month_images_with_background(output_folder, background_image, font_path, text_color):
     """Создание изображений для каждого месяца с текстами в ячейках."""
     width, height = 3200, 1800
     os.makedirs(output_folder, exist_ok=True)
@@ -52,8 +52,8 @@ def create_month_images_with_background(output_folder, background_image, font_pa
 
         month_name = months_ru[month - 1].upper()
         text_width = draw.textlength(month_name, font=font_title)
-        draw.text(((width - text_width) // 2, 60), month_name, fill="black", font=font_title)
-        draw.text((width // 2 - 50, 200), "2025", fill="black", font=font_day)
+        draw.text(((width - text_width) // 2, 60), month_name, fill=text_color, font=font_title)
+        draw.text((width // 2 - 50, 200), "2025", fill=text_color, font=font_day)
 
         # Начальные числа для текущего месяца
         general_day_number = start_numbers[months_ru[month - 1]]["Общий день"]
@@ -79,19 +79,19 @@ def create_month_images_with_background(output_folder, background_image, font_pa
                 draw.rectangle([x1, y1, x2, y2], fill=color, outline=None)
                 
                 if day:
-                    draw.text((x1 + 20, y1 + 20), str(day), fill="black", font=font_date)
+                    draw.text((x1 + 20, y1 + 20), str(day), fill=text_color, font=font_date)
                     
                     # Добавление текста "Общий день - цифра"
                     general_text = f"Общий день - {general_day_number}"
                     general_width = draw.textlength(general_text, font=font_cell_text)
                     draw.text((x1 + (cell_width - general_width) // 2, y1 + 60), 
-                              general_text, fill="black", font=font_cell_text)
+                              general_text, fill=text_color, font=font_cell_text)
                     
                     # Добавление текста "Личный день - цифра"
                     personal_text = f"Личный день - {personal_day_number}"
                     personal_width = draw.textlength(personal_text, font=font_cell_text)
                     draw.text((x1 + (cell_width - personal_width) // 2, y1 + 140), 
-                              personal_text, fill="black", font=font_cell_text)
+                              personal_text, fill=text_color, font=font_cell_text)
                     
                     # Обновление day_number (по кругу от 1 до 9)
                     general_day_number = 1 if general_day_number == 9 else general_day_number + 1

@@ -1,7 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 import os
 
-def create_ganeral_image_2(output_folder, background_image, font_path):
+def create_ganeral_image_2(output_folder, background_image, font_path, text_color):
     """Создание титульного изображения."""
     width, height = 3200, 1800
     title_image_path = os.path.join(output_folder, "002_Общий.png")
@@ -30,7 +30,7 @@ def create_ganeral_image_2(output_folder, background_image, font_path):
 
     # Отрисовка заголовка
     text_width = draw.textlength(title_text, font=font_title)
-    draw.text(((width - text_width) // 2, 600), title_text, fill="black", font=font_title)
+    draw.text(((width - text_width) // 2, 600), title_text, fill=text_color, font=font_title)
 
     # Отрисовка каждой строки подзаголовка
     start_y = 800  # Начальная позиция Y для подзаголовка
@@ -38,7 +38,7 @@ def create_ganeral_image_2(output_folder, background_image, font_path):
 
     for i, line in enumerate(subtitle_lines):
         text_width = draw.textlength(line, font=font_subtitle)
-        draw.text(((width - text_width) // 2, start_y + i * line_spacing), line, fill="black", font=font_subtitle)
+        draw.text(((width - text_width) // 2, start_y + i * line_spacing), line, fill=text_color, font=font_subtitle)
 
 
 

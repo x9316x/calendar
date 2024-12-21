@@ -1,7 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 import os
 
-def create_ganeral_image_1(output_folder, background_image, font_path):
+def create_ganeral_image_1(output_folder, background_image, font_path, text_color):
     """Создание титульного изображения."""
     width, height = 3200, 1800
     title_image_path = os.path.join(output_folder, "001_Общий.png")
@@ -24,10 +24,10 @@ def create_ganeral_image_1(output_folder, background_image, font_path):
     subtitle_text = "ГОД ЗАВЕРШЕНИЯ ЦИКЛА"
 
     text_width = draw.textlength(title_text, font=font_title)
-    draw.text(((width - text_width) // 2, 600), title_text, fill="black", font=font_title)
+    draw.text(((width - text_width) // 2, 600), title_text, fill=text_color, font=font_title)
 
     text_width = draw.textlength(subtitle_text, font=font_subtitle)
-    draw.text(((width - text_width) // 2, 800), subtitle_text, fill="black", font=font_subtitle)
+    draw.text(((width - text_width) // 2, 800), subtitle_text, fill=text_color, font=font_subtitle)
 
     bg.save(title_image_path, "PNG")
     print(f"Титульный слайд сохранён как {title_image_path}")

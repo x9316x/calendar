@@ -24,6 +24,8 @@ def main():
     phone_image = os.path.join(images_dir, "phone.png")
     phone_image_2 = os.path.join(images_dir, "phone_2.png")
 
+    text_color = "black"
+
     # Проверка существования каталогов
     if not os.path.exists(fonts_dir):
         print(f"Каталог с шрифтами не найден: {fonts_dir}")
@@ -35,36 +37,36 @@ def main():
 
     # Генерация слайдов
     # print("Генерация титульного слайда...")
-    create_title_image(output_folder, background_image, font_path)
+    create_title_image(output_folder, background_image, font_path, text_color)
 
     # print("Генерация общего слайда 1...")
-    create_ganeral_image_1(output_folder, background_image, font_path)
+    create_ganeral_image_1(output_folder, background_image, font_path, text_color)
 
     # print("Генерация общего слайда 2...")
-    create_ganeral_image_2(output_folder, background_image, font_path)
+    create_ganeral_image_2(output_folder, background_image, font_path, text_color)
     
     # print("Генерация общего слайда 3...")
     create_ganeral_image_3(output_folder, background_image, phone_image)
 
     
     # print("Генерация общего слайда 4...")
-    create_ganeral_image_4(output_folder, background_image, font_path)
+    create_ganeral_image_4(output_folder, background_image, font_path, text_color)
 
     # print("Генерация общего слайда 5...")
-    create_ganeral_image_5(output_folder, background_image, font_path)
+    create_ganeral_image_5(output_folder, background_image, font_path, text_color)
 
     # print("Генерация общего слайда 6...")
     create_ganeral_image_6(output_folder, background_image, phone_image_2)
     
     # print("Генерация общего слайда 7...")
-    create_ganeral_image_7(output_folder, background_image, font_path)
+    create_ganeral_image_7(output_folder, background_image, font_path, text_color)
 
 
     # print("Генерация общего слайда 8...")
-    create_ganeral_image_8(output_folder, background_image, font_path)
+    create_ganeral_image_8(output_folder, background_image, font_path, text_color)
 
     # # print("Генерация календарных изображений...")
-    create_month_images_with_background(output_folder, background_image, font_path)
+    create_month_images_with_background(output_folder, background_image, font_path, text_color)
 
 if __name__ == "__main__":
     main()

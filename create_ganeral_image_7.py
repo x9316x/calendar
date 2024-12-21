@@ -2,7 +2,7 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 import textwrap
 
-def create_ganeral_image_7(output_folder, background_image, font_path):
+def create_ganeral_image_7(output_folder, background_image, font_path, text_color):
     """Создание слайда с заголовком и текстом."""
     width, height = 3200, 1800
     output_path = os.path.join(output_folder, "007_Общий.png")  # Имя выходного файла
@@ -23,7 +23,7 @@ def create_ganeral_image_7(output_folder, background_image, font_path):
     # Заголовок
     title_text = "ГОД 1 - СОЛНЦА. НАЧАЛО ВСЕГО НОВОГО"
     title_x = (width - draw.textlength(title_text, font=font_title)) // 2
-    draw.text((title_x, 200), title_text, fill="black", font=font_title)
+    draw.text((title_x, 200), title_text, fill=text_color, font=font_title)
 
     # Основной текст
     main_text = (
@@ -38,7 +38,7 @@ def create_ganeral_image_7(output_folder, background_image, font_path):
     # Рисуем текст по строкам
     for line in wrapped_text.split("\n"):
         line_x = (width - draw.textlength(line, font=font_text)) // 2
-        draw.text((line_x, text_start_y), line, fill="black", font=font_text)
+        draw.text((line_x, text_start_y), line, fill=text_color, font=font_text)
         text_start_y += font_text.size + line_spacing
 
     # Сохраняем результат

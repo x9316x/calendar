@@ -2,7 +2,7 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 import textwrap
 
-def create_ganeral_image_4(output_folder, background_image, font_path):
+def create_ganeral_image_4(output_folder, background_image, font_path, text_color):
     """Создание четвёртого слайда."""
     width, height = 3200, 1800
     title_image_path = os.path.join(output_folder, "004_Общий.png")
@@ -37,12 +37,12 @@ def create_ganeral_image_4(output_folder, background_image, font_path):
     # Позиция заголовка
     title_bbox = draw.textbbox((0, 0), title_text, font=font_title)
     title_width = title_bbox[2] - title_bbox[0]
-    draw.text(((width - title_width) // 2, 200), title_text, fill="black", font=font_title)
+    draw.text(((width - title_width) // 2, 200), title_text, fill=text_color, font=font_title)
 
     # Позиция подзаголовка
     subtitle_bbox = draw.textbbox((0, 0), subtitle_text, font=font_subtitle)
     subtitle_width = subtitle_bbox[2] - subtitle_bbox[0]
-    draw.text(((width - subtitle_width) // 2, 400), subtitle_text, fill="black", font=font_subtitle)
+    draw.text(((width - subtitle_width) // 2, 400), subtitle_text, fill=text_color, font=font_subtitle)
 
     # Перенос текста вручную и выравнивание по ширине и центру
     wrapped_lines = textwrap.fill(paragraph_text, width=75).split('\n')  # Разделяем на строки
@@ -53,7 +53,7 @@ def create_ganeral_image_4(output_folder, background_image, font_path):
         line_bbox = draw.textbbox((0, 0), line, font=font_text)
         line_width = line_bbox[2] - line_bbox[0]
         x_position = (width - line_width) // 2  # Центрируем каждую строку
-        draw.text((x_position, current_y), line, fill="black", font=font_text)
+        draw.text((x_position, current_y), line, fill=text_color, font=font_text)
         current_y += line_bbox[3] - line_bbox[1] + line_spacing  # Сдвигаем вниз для следующей строки
 
     # Сохранение изображения
