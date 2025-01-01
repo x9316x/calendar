@@ -4,18 +4,18 @@ import os
 
 # Начальные числа для каждого месяца
 start_numbers = {
-    "Январь": {"Общий день": 2, "Личный день": 3},
-    "Февраль": {"Общий день": 3, "Личный день": 4},
-    "Март": {"Общий день": 4, "Личный день": 5},
-    "Апрель": {"Общий день": 5, "Личный день": 6},
-    "Май": {"Общий день": 6, "Личный день": 7},
-    "Июнь": {"Общий день": 7, "Личный день": 8},
-    "Июль": {"Общий день": 8, "Личный день": 9},
-    "Август": {"Общий день": 9, "Личный день": 1},
-    "Сентябрь": {"Общий день": 1, "Личный день": 2},
-    "Октябрь": {"Общий день": 2, "Личный день": 3},
-    "Ноябрь": {"Общий день": 3, "Личный день": 4},
-    "Декабрь": {"Общий день": 4, "Личный день": 5},
+    "Январь": {"Общий день": 2, "Личный день": 2},
+    "Февраль": {"Общий день": 3, "Личный день": 3},
+    "Март": {"Общий день": 4, "Личный день": 4},
+    "Апрель": {"Общий день": 5, "Личный день": 5},
+    "Май": {"Общий день": 6, "Личный день": 6},
+    "Июнь": {"Общий день": 7, "Личный день": 7},
+    "Июль": {"Общий день": 8, "Личный день": 8},
+    "Август": {"Общий день": 9, "Личный день": 9},
+    "Сентябрь": {"Общий день": 1, "Личный день": 1},
+    "Октябрь": {"Общий день": 2, "Личный день": 2},
+    "Ноябрь": {"Общий день": 3, "Личный день": 3},
+    "Декабрь": {"Общий день": 4, "Личный день": 4},
 }
 
 def create_month_images_with_background(output_folder, background_image, font_path, text_color):
@@ -46,6 +46,11 @@ def create_month_images_with_background(output_folder, background_image, font_pa
     total_grid_width = len(days_ru) * (cell_width + padding) - padding
     start_x = (width - total_grid_width) // 2
 
+    highlight_color_3 = (80, 200, 80, 150)  # Зелёный цвет
+    highlight_color_6 = (80, 80, 200, 150)  # Синий цвет
+    highlight_color_date = (200, 80, 80, 150)  # Малиновый для 10, 20, 30 чисел
+    default_color = (200, 200, 200, 150)  # Обычный цвет ячеек
+
     for month in range(1, 13):
         img = bg.copy()
         draw = ImageDraw.Draw(img, "RGBA")
@@ -53,7 +58,7 @@ def create_month_images_with_background(output_folder, background_image, font_pa
         month_name = months_ru[month - 1].upper()
         text_width = draw.textlength(month_name, font=font_title)
         draw.text(((width - text_width) // 2, 60), month_name, fill=text_color, font=font_title)
-        draw.text((width // 2 - 50, 200), "2025", fill=text_color, font=font_day)
+        draw.text((width // 2 - 50, 200), "2025", fill="black", font=font_day)
 
         # Начальные числа для текущего месяца
         general_day_number = start_numbers[months_ru[month - 1]]["Общий день"]
@@ -75,23 +80,33 @@ def create_month_images_with_background(output_folder, background_image, font_pa
                 y1 = start_y + (week_idx + 1) * (cell_height + padding)
                 x2 = x1 + cell_width
                 y2 = y1 + cell_height
-                color = (255, 255, 255, 0) if not day else (200, 200, 200, 150)
-                draw.rectangle([x1, y1, x2, y2], fill=color, outline=None)
-                
+
+                # Определяем цвет ячейки
                 if day:
-                    draw.text((x1 + 20, y1 + 20), str(day), fill=text_color, font=font_date)
+                    if general_day_number == 3:
+                        cell_color = highlight_color_3
+                    elif general_day_number == 6:
+                        cell_color = highlight_color_6
+                    elif day in [10, 20, 30]:
+                        cell_color = highlight_color_date
+                    else:
+                        cell_color = default_color
+
+                    draw.rectangle([x1, y1, x2, y2], fill=cell_color, outline=None)
+
+                    draw.text((x1 + 20, y1 + 20), str(day), fill="black", font=font_date)
                     
                     # Добавление текста "Общий день - цифра"
                     general_text = f"Общий день - {general_day_number}"
                     general_width = draw.textlength(general_text, font=font_cell_text)
                     draw.text((x1 + (cell_width - general_width) // 2, y1 + 60), 
-                              general_text, fill=text_color, font=font_cell_text)
+                              general_text, fill="black", font=font_cell_text)
                     
                     # Добавление текста "Личный день - цифра"
                     personal_text = f"Личный день - {personal_day_number}"
                     personal_width = draw.textlength(personal_text, font=font_cell_text)
                     draw.text((x1 + (cell_width - personal_width) // 2, y1 + 140), 
-                              personal_text, fill=text_color, font=font_cell_text)
+                              personal_text, fill="black", font=font_cell_text)
                     
                     # Обновление day_number (по кругу от 1 до 9)
                     general_day_number = 1 if general_day_number == 9 else general_day_number + 1
