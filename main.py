@@ -45,8 +45,8 @@ def main():
     font_path = os.path.join(fonts_dir, "ofont.ru_Uncage.ttf")
     background_image = os.path.join(images_dir, "background.png")
     
-    base_folder= "months_png/"
-    # base_folder = "all_years/"
+    # base_folder= "months_png/"
+    base_folder = "all_years/"
 
 
     # text_color = "black"

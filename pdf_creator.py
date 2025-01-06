@@ -29,11 +29,14 @@ def stitch_images_to_pdf(input_folder, title_image, output_pdf):
     images[0].save(output_pdf, save_all=True, append_images=images[1:])
     print(f"Календарь сохранён как {output_pdf}")
 
-def process_all_folders(base_folder="all_years", output_prefix="calendar"):
+def process_all_folders(base_folder="all_years", output_prefix="calendar", output_folder="pdf_outputs"):
     """Создание PDF для каждой папки внутри базовой папки."""
     if not os.path.exists(base_folder):
         print(f"Ошибка: Папка {base_folder} не найдена!")
         return
+
+    # Создаём папку вывода, если её нет
+    os.makedirs(output_folder, exist_ok=True)
 
     # Находим все подкаталоги в базовой папке
     subfolders = sorted([f.path for f in os.scandir(base_folder) if f.is_dir()])
@@ -43,7 +46,7 @@ def process_all_folders(base_folder="all_years", output_prefix="calendar"):
 
         # Генерируем пути
         title_image = os.path.join(folder, "00_Титульный.png")
-        output_pdf = f"{output_prefix}_{idx}.pdf"
+        output_pdf = os.path.join(output_folder, f"{output_prefix}_{idx}.pdf")
 
         # Проверяем, что титульный файл существует
         if not os.path.exists(title_image):
@@ -57,6 +60,7 @@ if __name__ == "__main__":
     # Параметры для запуска
     base_folder = "all_years"  # Папка, содержащая 9 папок с изображениями
     output_prefix = "calendar"  # Префикс для названий выходных файлов
+    output_folder = "input_pdfs"  # Папка для сохранения PDF
 
     print("Создание PDF для всех папок...")
-    process_all_folders(base_folder, output_prefix)
+    process_all_folders(base_folder, output_prefix, output_folder)
