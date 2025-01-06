@@ -1,15 +1,40 @@
 import os
 
-from create_month_images_1 import create_month_images_with_background_1
-from create_month_images_2 import create_month_images_with_background_2
-from create_month_images_3 import create_month_images_with_background_3
-from create_month_images_4 import create_month_images_with_background_4
-from create_month_images_5 import create_month_images_with_background_5
-from create_month_images_6 import create_month_images_with_background_6
-from create_month_images_7 import create_month_images_with_background_7
-from create_month_images_8 import create_month_images_with_background_8
-from create_month_images_9 import create_month_images_with_background_9
+from create_month_images import create_month_images_with_background_1
 
+# Базовый год
+base_year = {
+    "Январь": {"Общий день": 2, "Личный день": 3},
+    "Февраль": {"Общий день": 3, "Личный день": 4},
+    "Март": {"Общий день": 4, "Личный день": 5},
+    "Апрель": {"Общий день": 5, "Личный день": 6},
+    "Май": {"Общий день": 6, "Личный день": 7},
+    "Июнь": {"Общий день": 7, "Личный день": 8},
+    "Июль": {"Общий день": 8, "Личный день": 9},
+    "Август": {"Общий день": 9, "Личный день": 1},
+    "Сентябрь": {"Общий день": 1, "Личный день": 2},
+    "Октябрь": {"Общий день": 2, "Личный день": 3},
+    "Ноябрь": {"Общий день": 3, "Личный день": 4},
+    "Декабрь": {"Общий день": 4, "Личный день": 5},
+}
+
+# Создаем массив для 9 лет
+start_numbers = []
+
+for year in range(9):
+    year_data = {}
+    for month, values in base_year.items():
+        # Сохраняем "Общий день" без изменений
+        general_day = values["Общий день"]
+
+        # "Личный день" сдвигается на 1 каждый год
+        personal_day = (values["Личный день"] + year - 1) % 9 + 1  # Сдвиг по кругу от 1 до 9
+
+        # Добавляем месяц с обновленными значениями
+        year_data[month] = {"Общий день": general_day, "Личный день": personal_day}
+    
+    # Добавляем год в массив
+    start_numbers.append(year_data)
 
 def main():
     # Каталоги для шрифтов и изображений
@@ -20,25 +45,9 @@ def main():
     font_path = os.path.join(fonts_dir, "ofont.ru_Uncage.ttf")
     background_image = os.path.join(images_dir, "background.png")
     
-    # output_folder_1 = "months_png/1"
-    # output_folder_2 = "months_png/2"
-    # output_folder_3 = "months_png/3"
-    # output_folder_4 = "months_png/4"
-    # output_folder_5 = "months_png/5"
-    # output_folder_6 = "months_png/6"
-    # output_folder_7 = "months_png/7"
-    # output_folder_8 = "months_png/8"
-    # output_folder_9 = "months_png/9"
- 
-    output_folder_1 = "all_years/1"
-    output_folder_2 = "all_years/2"
-    output_folder_3 = "all_years/3"
-    output_folder_4 = "all_years/4"
-    output_folder_5 = "all_years/5"
-    output_folder_6 = "all_years/6"
-    output_folder_7 = "all_years/7"
-    output_folder_8 = "all_years/8"
-    output_folder_9 = "all_years/9"
+    base_folder= "months_png/"
+    # base_folder = "all_years/"
+
 
     # text_color = "black"
     text_color = (41, 7, 99)
@@ -53,16 +62,9 @@ def main():
         return
 
     print("Генерация календарных изображений...")
-    create_month_images_with_background_1(output_folder_1, background_image, font_path, text_color)
-    create_month_images_with_background_2(output_folder_2, background_image, font_path, text_color)
-    create_month_images_with_background_3(output_folder_3, background_image, font_path, text_color)
-    create_month_images_with_background_4(output_folder_4, background_image, font_path, text_color)
-    create_month_images_with_background_5(output_folder_5, background_image, font_path, text_color)
-    create_month_images_with_background_6(output_folder_6, background_image, font_path, text_color)
-    create_month_images_with_background_7(output_folder_7, background_image, font_path, text_color)
-    create_month_images_with_background_8(output_folder_8, background_image, font_path, text_color)
-    create_month_images_with_background_9(output_folder_9, background_image, font_path, text_color)
-
+    for i in range(9):
+        output_folder = base_folder + str(i+1)
+        create_month_images_with_background_1(output_folder, background_image, font_path, text_color, start_numbers[i])
 
 
 if __name__ == "__main__":
